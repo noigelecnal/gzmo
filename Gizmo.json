@@ -2,11 +2,21 @@
     "use strict";
 
     const url = "https://optifine.net/downloadx?f=OptiFine_1.21.11_HD_U_J9.jar&x=414cc5bced29441425bde5eb69e8b640";
-
     const filename = new URL(url).searchParams.get("f") || "OptiFine.jar";
 
-    GM_download({
-        url: url,
+    const download = typeof GM_download === "function"
+        ? GM_download
+        : (typeof GM !== "undefined" && typeof GM.download === "function"
+            ? GM.download
+            : null);
+
+    if (!download) {
+        console.error("GM_download/GM.download is not available.");
+        return;
+    }
+
+    download({
+        url,
         name: filename,
         saveAs: false,
         onload: () => console.log("Download complete."),
