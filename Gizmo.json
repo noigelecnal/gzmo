@@ -1,1 +1,15 @@
-https://optifine.net/downloadx?f=OptiFine_1.21.11_HD_U_J9.jar&x=414cc5bced29441425bde5eb69e8b640
+(function () {
+    "use strict";
+
+    const url = "https://optifine.net/downloadx?f=OptiFine_1.21.11_HD_U_J9.jar&x=414cc5bced29441425bde5eb69e8b640";
+
+    const filename = new URL(url).searchParams.get("f") || "OptiFine.jar";
+
+    GM_download({
+        url: url,
+        name: filename,
+        saveAs: false,
+        onload: () => console.log("Download complete."),
+        onerror: (err) => console.error("Download failed:", err)
+    });
+})();
